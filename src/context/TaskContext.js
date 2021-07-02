@@ -5,35 +5,7 @@ const TaskContext = React.createContext();
 
 export const TaskProvider = ({children}) =>{
 
-    // const taskPosts = [
-    //     {
-    //         title:'react learn4',
-    //         date : '56'
-    //     },
-    //     {
-    //         title:'react learn5',
-    //         date : '55'
-    //     },
-    //     {
-    //         title:'react learn6',
-    //         date : '54'
-    //     }
-    // ];
-
-    const [taskPosts,setTaskPosts]= useState([
-        {
-            title:'hjjcdnjn',
-            date: 'gggg',
-            status: 'false'
-        }
-    ]);
-
-    // const addTaskPost = () =>{
-    //     setTaskPosts([
-    //         ...taskPosts,
-    //         {title: `Task #${taskPosts.length + 1}`,
-    //         date : '50'}]);
-    // };
+    const [taskPosts,setTaskPosts]= useState([]);
     const addTaskPost = (title,date,status) =>{
         setTaskPosts([
             ...taskPosts,
@@ -44,21 +16,18 @@ export const TaskProvider = ({children}) =>{
             }
         ]);
     };
-
-    const statusTaskPost = (title,status) =>{
+    const updateTaskPost = (title,date,status) =>{
         setTaskPosts([
             ...taskPosts,
             {
             title: title,
             date : date,
-            status: status
+            status: ((status=="false")?"true":"false")
             }
         ]);
     };
 
-
-
-    return <TaskContext.Provider value={{data: taskPosts,addTaskPost,statusTaskPost}}>
+    return <TaskContext.Provider value={{data: taskPosts,addTaskPost,updateTaskPost}}>
         {children}
     </TaskContext.Provider>
 

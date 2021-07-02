@@ -5,21 +5,17 @@ import TaskContext from '../context/TaskContext';
 
 const ShowTask = (props) =>{
 
-
-    //console.log(props.state.params.atask);
-
-     const [work,setWork]=useState("");
+    const [work,setWork]=
+    useState(props.navigation.getParam('title',''));
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-      const [target,setTarget] = useState(new Date());
+    const [target,setTarget] = 
+    useState(props.navigation.getParam('date', new Date()));
 
-      const {data,addTaskPost} = useContext(TaskContext);
+    const {data,addTaskPost,updateTaskPost} = useContext(TaskContext);
 
-      const [status,setStatus]=useState("false");
-
-    //   console.log(typeof(work));
-    //   console.log(typeof(target));
-
+    const [status,setStatus]=
+    useState(props.navigation.getParam('status',"false"));
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
@@ -29,25 +25,11 @@ const ShowTask = (props) =>{
     };
 
     const handleConfirm = (date) => {
-        console.log(date);
-        console.log(typeof(date));
-        // console.warn("A date has been picked: ", date);
         setTarget(date);
-        // setcurrentdate(date);
         hideDatePicker();
     };
 
-
-    // const getnewtask =  () =>{
-    //     var newtask = {
-    //         title: {work},
-    //         date:{target}
-    //     };
-    //     // console.log("new task added");
-    //     return newtask;
-    // };
-
-
+ 
     return (
         <View>
             <View>
@@ -59,42 +41,24 @@ const ShowTask = (props) =>{
             >
             </TextInput>
             </View>
-            
-            {/* <Text>{work}</Text> */}
-            {/* <Text>{work}</Text> */}
-            {/* <Text>{props.navigation.state.params.atask.id}</Text> */}
-            
+            <Text style={styles.textSize}>Status : {status}</Text>
             <Text style={styles.textSize}>Set Date and Time :</Text>
             <View>
             <Button title="Set date and time" onPress={showDatePicker} />
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="datetime"
-                
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
             ></DateTimePickerModal>
             <Text>{target.toString()}</Text>
-            {/* <Text>{currentdate}</Text> */}
-            <Button 
-            title="update task"
-            onPress={() => addTaskPost(work,target.toString(),status)}
-            >
-            </Button>
-
             <Button 
             title="back to tasks" 
             onPress={()=>{  
+                addTaskPost(work,target.toString(),status);
                 props.navigation.navigate('Task');
-                // props.navigation.state.params.settask([...props.navigation.state.params.task,getnewtask()]);
-                // var temptask = getnewtask();
-                // props.navigation.navigate('Task',{temptask});
                             }}></Button>
             </View>
-
-
-
-
         </View>
     );
    
