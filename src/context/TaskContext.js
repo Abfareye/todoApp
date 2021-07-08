@@ -7,14 +7,16 @@ export const TaskProvider = ({children}) =>{
 
     const [taskPosts,setTaskPosts]= useState([]);
     const addTaskPost = (title,date,status) =>{
-        setTaskPosts([
-            ...taskPosts,
-            {
-            title: title,
-            date : date,
-            status: status
-            }
-        ]);
+        if(title.length>0 && !taskPosts.some(el => el.title === title)){
+            setTaskPosts([
+                ...taskPosts,
+                {
+                title: title,
+                date : date,
+                status: status
+                }
+            ]);
+        }
     };
     const updateTaskPost = (title,date,status) =>{
         setTaskPosts([
@@ -26,8 +28,12 @@ export const TaskProvider = ({children}) =>{
             }
         ]);
     };
+    const deleteTaskPost = (title,date,status) => {
+        const newtaskPosts = taskPosts.filter(task => task.title !== title);
+        setTaskPosts(newtaskPosts);
+    };
 
-    return <TaskContext.Provider value={{data: taskPosts,addTaskPost,updateTaskPost}}>
+    return <TaskContext.Provider value={{data: taskPosts,addTaskPost,updateTaskPost,deleteTaskPost}}>
         {children}
     </TaskContext.Provider>
 

@@ -15,7 +15,8 @@ const navigator = createStackNavigator(
   {
   initialRouteName: 'Task',
   defaultNavigationOptions: {
-    title: 'Todo App'
+    gestureEnabled: true,
+    headerShown: false
   }
 });
 

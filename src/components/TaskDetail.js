@@ -6,14 +6,7 @@ import TaskContext from '../context/TaskContext';
 
 const TaskDetail= ({atask,navigation}) =>{
 
-    // console.log("abhay");
-    // // console.log({atask});
-    const {data,addTaskPost} = useContext(TaskContext);
-
-  
-    // console.log(changeStatus);
-    // console.log(atask);
-    // if(atask===[])return;
+    const {data,addTaskPost,updateTaskPost,deleteTaskPost} = useContext(TaskContext);
     const [tick,settick]=useState("checkcircleo");
     const updation = ()=>{
         if(tick=="checkcircleo"){
@@ -25,28 +18,42 @@ const TaskDetail= ({atask,navigation}) =>{
         atask.status=atask.status=="false"?"true":"false";
     }
     return (
-        <View style={{flex:2,
+        <View style={{flex:1,
         flexDirection:'row',
-        justifyContent:'space-between',
-        backgroundColor:'#DDDDDD',
-        borderBottomWidth:2}}>
-            {/* <AntDesign name="checkcircle" size={24} color="black" /> */}
+        marginBottom:4,
+        marginLeft:8,
+        marginRight:8,
+        borderRadius:4,
+        backgroundColor: "white",
+        alignItems: 'center'
+        }}>
+            <View>
             <TouchableOpacity 
-            onPress=
-                {
-              updation
-              }>
-            <AntDesign 
-            name= {tick} size={24} color="black" >
-            </AntDesign>
+            onPress={updation}
+            style={styles.tickbutton}>
+            <AntDesign name= {tick} size={44} color="black" ></AntDesign>
             </TouchableOpacity>
+            </View>
+            
+            <View style={{width:340}}>
             <TouchableOpacity 
             onPress={()=>navigation.navigate('Show',{title:atask.title,
             date:atask.date,status:atask.status})}>
-            <Text style={styles.taskBox}>{atask.title}</Text>
-            <Text>Date : {atask.date}</Text>
-            <Text>Status : {atask.status}</Text>
+            <Text style={styles.titletaskBox}>{atask.title}</Text>
+            <Text style={styles.taskBox}>Date : {atask.date}</Text>
             </TouchableOpacity>
+
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+            <Text style={styles.taskBox}>Status : {atask.status}</Text>
+            <TouchableOpacity
+            style={{paddibongBottom:5,paddingRight:5,width:50}}
+            onPress={()=>{
+                deleteTaskPost(atask.title,atask.date,atask.status);
+            }}>
+            <AntDesign name="delete" size={24} color="black" />
+            </TouchableOpacity>
+            </View>
+            </View>
         </View>
     );
 };
@@ -55,11 +62,24 @@ const styles = StyleSheet.create({
     textSize :{
         fontSize:20
     },
-    taskBox:{
+    titletaskBox:{
         fontWeight:'bold',
+        fontSize:20,
+        left:20
+         //alignSelf:'flex-end',
+    },
+    taskBox:{
+       // fontWeight:'bold',
         fontSize:16,
-         alignSelf:'flex-end'
-
+        left:20
+         //alignSelf:'flex-end',
+    },
+    tickbutton:{
+      //  borderWidth:2,
+        width:55,
+        top:7,
+        left:10,
+        
     }
 });
 

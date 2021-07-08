@@ -5,9 +5,10 @@ import TaskContext from '../context/TaskContext';
 import { AntDesign } from '@expo/vector-icons'; 
 
 
+
 const TaskScreen =({navigation}) =>{
 
-    const {data,addTaskPost,updateTaskPost} = useContext(TaskContext);
+    const {data,addTaskPost,updateTaskPost,deleteTaskPost} = useContext(TaskContext);
     const[atask,setatask]=useState(
         {
             title:'',
@@ -16,48 +17,68 @@ const TaskScreen =({navigation}) =>{
         }
     );
     return (
-    <View>
-        <TouchableOpacity 
-        onPress={ ()=>navigation.navigate('Show',{atask:atask})
-        } 
-        style={styles.button}>
-            <Text>Add a new Task</Text>
-            </TouchableOpacity>
-        <Text style={styles.textSize}>Pending tasks</Text>
+    <View style={styles.container}>
+        
+        <View style={styles.headerstyle}>
+        <Text style={styles.textSize}>Tasks</Text>
+        </View>
+
+        <View>
         <FlatList 
         data={data}
         keyExtractor={(item,index)=> index.toString()}
         renderItem={({item})=>{
             return (
-                <TaskDetail
-                atask={item}
-                ></TaskDetail>
+                <TaskDetail atask={item}></TaskDetail>
             );
         }}
         >
         </FlatList>
 
+        <TouchableOpacity 
+        onPress={ ()=>navigation.navigate('Show',{atask:atask})} 
+        style={styles.plusbutton}
+        >
+        <AntDesign name="pluscircleo" size={60} color="black" />
+        </TouchableOpacity>
+        </View>
     </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+      backgroundColor: '#6c99d4'
+        
+    },
+    headerstyle:{
+        marginTop:20,
+        //marginBottom:20,
+        
+    //     borderBottomWidth:2,
+    //   borderWidth:2,
+      marginBottom:4
+    },
     textSize :{
-        fontSize:20,
-        borderBottomWidth:2
+        fontSize:50,
+        alignContent:'flex-start',
+        paddingLeft: 14,
+        fontWeight:'bold',
+        color: '#FFFFFF'
     },
-    button: {
-        alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 10
+    plusbutton: {
+       // resizeMode:'contain',
+        //borderWidth:2,
+        // width:80,
+        // height:80,
+        alignItems:'center',
+        left:315,
+        top:500,
+        position:'absolute',
+        backgroundColor:'white',
+        borderRadius:30
     },
-    taskbutton:{
-        backgroundColor: "#DDDDDD",
-        borderBottomColor: "#1a1919",
-        borderBottomWidth:1,
-        height:30
-
-    }
 });
 export default TaskScreen;
 
