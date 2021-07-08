@@ -4,10 +4,13 @@ const TaskContext = React.createContext();
 
 
 export const TaskProvider = ({children}) =>{
-
+// && !taskPosts.some(el => el.title === title)
     const [taskPosts,setTaskPosts]= useState([]);
+
     const addTaskPost = (title,date,status) =>{
-        if(title.length>0 && !taskPosts.some(el => el.title === title)){
+        if(title.length>0 && !taskPosts.includes({title: title,
+            date : date,
+            status: status},0)){
             setTaskPosts([
                 ...taskPosts,
                 {
@@ -17,7 +20,17 @@ export const TaskProvider = ({children}) =>{
                 }
             ]);
         }
+        // var newtaskPosts;
+        // function removeusingSet(arr) {
+        //     let outputArray = Array.from(new Set(arr));
+        //     return outputArray;
+        // }
+        // setTaskPosts(removeusingSet(taskPosts));
+
+        
+
     };
+
     const updateTaskPost = (title,date,status) =>{
         setTaskPosts([
             ...taskPosts,

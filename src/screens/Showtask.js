@@ -35,6 +35,9 @@ const ShowTask = (props) =>{
         hideDatePicker();
     };
 
+    // console.log(target);
+    // console.log(typeof(target));
+
     const taskstatus=(status) =>{
         if(status=="true")return "completed";
         else return "not done yet";
