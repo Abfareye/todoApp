@@ -16,6 +16,8 @@ const TaskScreen =({navigation}) =>{
             status: 'false'
         }
     );
+    console.log(atask);
+    
     return (
     <View style={styles.container}>
         
